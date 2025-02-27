@@ -92,11 +92,11 @@ void recurDealer(ll val, ll node){
 		for(ll j = 0; j < cardSet.val[i].se; ++j){
 			--cardSet.val[i].se;
 			val += cardSet.val[i].fi;
-			vt.emplace_back(i);
+//			vt.emplace_back(i);
 			recurDealer(val, node);
 			val -= cardSet.val[i].fi;
 			++cardSet.val[i].se;
-			vt.pop_back();
+//			vt.pop_back();
 		}
 	}
 }
@@ -104,9 +104,17 @@ void recurDealer(ll val, ll node){
 int main(){
 	//freopen("inp.inp", "r", stdin);
 	//freopen("out.out", "w", stdout);
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	cout.tie(0);
+//	ios::sync_with_stdio(0);
+//	cin.tie(0);
+//	cout.tie(0);
+	
+	again:
+	dealer.clear();
+	player.clear();
+	setOfCard newSet;
+	cardSet = newSet;
+	dealerVal = 0;
+	playerVal = 0;
 	
 	dealer.emplace_back(0);
 	dealer.emplace_back(0);
@@ -157,9 +165,10 @@ int main(){
 		}
 		cout << numWin << " " << numNull << " " << numLose << "\n";
 		cout << "If CONTINUE, Safe: " << (double ((double (numWin))/(double (numWin+numLose))))*100 << "%" << "\n";
-		cout << "Next card: (If STOP, then -1)\n";
+		cout << "Next card: (If STOP, then -1, if Again, then 0)\n";
 		cin >> s;
 		if(s == "-1") break;
+		else if(s == "0") goto again;
 		else{
 			tmp = getNumCard(s);
 			player.emplace_back(tmp);
